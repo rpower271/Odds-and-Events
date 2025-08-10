@@ -33,7 +33,7 @@ function createForm() {
   $form.innerHTML = `
     <label>
       Add a number to the Bank
-      <input name="count" type="number" min="1" />
+      <input name="count" type="number" />
     </label>
     <button type="submit" data-action="add"> Add number</button>
     <button type="submit" data-action="sortOne"> Sort 1</button>
@@ -45,7 +45,7 @@ function createForm() {
     const action = event.submitter.dataset.action;
     if (action === "add") {
       const data = new FormData($form);
-      const number = data.get("number");
+      const number = data.get("count");
 
       if (number === null || number === "") return;
 
@@ -61,7 +61,7 @@ function createForm() {
 
 function numInBank(n) {
   const $span = document.createElement("span");
-  $span.textContext = n;
+  $span.textContent = n;
   return $span;
 }
 
@@ -83,12 +83,12 @@ function render() {
   const $app = document.querySelector("#app");
   $app.innerHTML = `
       <h1>Odds and Events</h1>
-      <NumberForm></NumberForm>
-      <NumberBank id="bank"></NumberBank>
-      <NumberBank id="odds"></NumberBank>
-      <NumberBank id="evens"></NumberBank>
+      <createForm></createForm>
+      <numBank id="bank"></numBank>
+      <numBank id="odds"></numBank>
+      <numBank id="evens"></numBank>
     `;
-  $app.querySelector("createForm").replaceWith(createFormForm());
+  $app.querySelector("createForm").replaceWith(createForm());
   $app.querySelector("numBank#bank").replaceWith(numBank("Bank", bank));
   $app.querySelector("numBank#odds").replaceWith(numBank("Odds", odds));
   $app.querySelector("numBank#evens").replaceWith(numBank("Evens", evens));
